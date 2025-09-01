@@ -1,0 +1,74 @@
+import { Image , ImageKitProvider } from '@imagekit/react';
+
+import { useState } from "react";
+
+
+
+const Navbar = () => {
+    const [isopen, setIsOpen] = useState(false);
+    
+  return (
+
+    <div className='w-full h-16 md:h-20 flex items-center justify-between'>
+        {/* LOGO */}
+        <div className="flex items-center gap-4 text-2xl font-bold">
+            <ImageKitProvider
+            publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}
+            urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
+            
+            >
+            <Image
+            
+            
+            //path="/logo.png"
+            src='/logo.png'
+             className="w-10 h-10"
+              alt="logo"
+            
+            />
+            </ImageKitProvider>
+            <span>Ai blogs</span>
+        </div>
+        {/* MOBILE MENU */}
+        <div className="md:hidden">
+           {/* HAMBURGER ICON */}
+            <div className="cursor-pointer text-4xl" >
+                 <button onClick={() => setIsOpen(!isopen)}>
+                {isopen ? "X" : "☰"}
+                 </button>
+            </div>
+            {/* MOBILE MENU ITEMS */}
+            <div
+             className={`w-full h-screen flex flex-col items-center justify-center absolute top-16 bg-red-700 transition-all duration-300 ease-in-out
+             ${isopen ? "right-0" : "-right-[100%]"}`}
+             >
+              {/* You can map over your menu items here */}
+              <a href="/about" className=" text-2xl p-4">About</a>
+              <a href="/contact" className=" text-2xl p-4">Contact</a>
+              <a href="/trending" className=" text-2xl p-4">Trending🎉</a>
+              <a href="/login">
+              </a>
+              <button className="py-2 px-4 rounded-3xl bg-blue-800 text-2xl text-white" >login👋</button>
+              
+            </div>
+        </div>
+        {/* DESKTOP MENU */}
+            <div className="hidden md:flex gap-4 items-center">
+        
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/trending">Trending🎉</a>
+            
+              <a href="/login">
+              
+              </a>
+              <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white" >login👋</button>
+            </div>  
+        </div>
+
+       )
+  
+}
+
+export default Navbar;
