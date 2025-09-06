@@ -2,7 +2,7 @@ import { Image , ImageKitProvider } from '@imagekit/react';
 
 import { useState } from "react";
 import { Link } from 'react-router';
-
+import { SignInButton, SignUpButton,SignIn, SignUp, SignedOut, UserButton, SignedIn } from '@clerk/clerk-react'; 
 
 
 const Navbar = () => {
@@ -62,10 +62,17 @@ const Navbar = () => {
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
             <Link to="/trending">Trending🎉</Link>
-               <Link to="/login"></Link>
+               <SignedOut>
+               <Link to="/login">
+
                  <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white" >login👋</button>
 
-              
+              </Link>
+                </SignedOut>
+
+                <SignedIn>
+                <UserButton/>
+                </SignedIn>              
             </div>  
         </div>
 
