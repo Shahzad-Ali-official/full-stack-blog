@@ -7,10 +7,16 @@ const Image = ({ src,className,w,h,alt}) => {
              path={src}
              className={className} 
              loading="lazy"
-             lqSip={{active:true, quality:20}}
+             lqip={{active:true, quality:20}}
             alt={alt}
             width={w}
             height={h}
+            transformation={[
+                {
+                    width: w,
+                    height: h
+                }
+            ]}
         />
     
 }
