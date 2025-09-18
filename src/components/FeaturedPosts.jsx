@@ -7,7 +7,7 @@ const FeaturedPosts = () => {
   return (
     <div className="mt-8 flex flex-col lg:flex-row gap-8">
         {/*firt*/}
-      <div className=" w-full lg:w-1/2 flex flex-col gap-4">
+      <div className=" w-full lg:w-1/2 flex flex-col gap-4" >
         {/*image*/}
           <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}>
           <Image  src="featured1.jpeg" className="rounded-3xl object-cover" width={735} />
@@ -32,7 +32,7 @@ const FeaturedPosts = () => {
           {/*second*/}
            <div className="lg:h-1/3 flex justify-between gap-4">
            <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT }>
-              <Image src="featured2.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" />
+              <Image src="featured2.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" width={298} />
               </ImageKitProvider>
               {/*details and title*/}
               <div className="w-2/3"> 
@@ -54,7 +54,7 @@ const FeaturedPosts = () => {
                  <div className="lg:h-1/3 flex justify-between gap-4">
                    <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT }>
                    
-                    <Image src="featured3.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" />
+                    <Image src="featured3.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" width={298}/>
                  </ImageKitProvider>
                   {/*details and title*/}
               <div className="w-2/3"> 
@@ -73,7 +73,7 @@ const FeaturedPosts = () => {
                          <div className="lg:h-1/3 flex justify-between gap-4">
                          <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT }>
                             
-                          <Image src="featured4.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" />
+                          <Image src="featured4.jpeg" className="rounded-3xl object-cover w-1/3 aspect-video" width={298}/>
                          </ImageKitProvider>
                           {/*details and title*/}
               <div className="w-2/3"> 
@@ -89,8 +89,7 @@ const FeaturedPosts = () => {
               <Link to="/test" className="text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl font-medium" >okaydo itttttttt</Link>
               </div>
                          </div>
-                                                            
-                  {/*second*/}
+                   
         
         
       

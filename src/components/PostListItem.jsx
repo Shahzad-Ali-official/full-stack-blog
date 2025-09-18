@@ -27,7 +27,7 @@ const PostListItem = () => {
                     accusantium eaque ani
                     mi. Ea maiores possimus consequatur quaerat, quam veniam? Eos quis voluptatem earum?
                   </p>
-                    <Link to="/test" className="underline text-blue-800 text-sm ">Read More</Link>
+                    <Link to="SinglePostList" className="underline text-blue-800 text-sm ">Read More</Link>
 
                 </div>
           </div>
