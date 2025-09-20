@@ -2,7 +2,7 @@ import { Image , ImageKitProvider } from '@imagekit/react';
 
 import { useState } from "react";
 import { Link } from 'react-router';
-import { SignInButton, SignUpButton,SignIn, SignUp, SignedOut, UserButton, SignedIn } from '@clerk/clerk-react'; 
+import {SignedIn, SignedOut, UserButton, } from '@clerk/clerk-react'; 
 
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
         {/* LOGO */}
         <Link to="/" className="flex items-center gap-4 text-2xl font-bold">
             <ImageKitProvider
-            publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}
+            
             urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
             
             >
