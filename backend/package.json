@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
-    "mongoose": "^8.18.2"
+    "mongoose": "^8.18.2",
+    "svix": "^1.76.1"
   }
 }
