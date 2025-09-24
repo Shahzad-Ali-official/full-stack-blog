@@ -22,7 +22,7 @@ export const clerkWebHook = async (req, res) => {
     if (evt.type === "user.created") {
         try {
             const newUser = new User({
-                clerkId: evt.data.id,
+                clerkUserId: evt.data.id,
                 username: evt.data.username || evt.data.email_addresses[0].email_address,
                 email: evt.data.email_addresses[0].email_address,
                 img: evt.data.image_url, 

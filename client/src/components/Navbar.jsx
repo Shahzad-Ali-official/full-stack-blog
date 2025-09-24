@@ -1,13 +1,22 @@
 import { Image , ImageKitProvider } from '@imagekit/react';
 
-import { useState } from "react";
+import { useState} from "react";
 import { Link } from 'react-router';
-import {SignedIn, SignedOut, UserButton, } from '@clerk/clerk-react'; 
+import {SignedIn, SignedOut, UserButton,useAuth } from '@clerk/clerk-react'; 
+import { useEffect } from 'react';
 
 
 const Navbar = () => {
     const [isopen, setIsOpen] = useState(false);
     
+const {getToken} = useAuth();
+
+useEffect(() => {
+  getToken().then((token) => console.log(token));
+  
+}, []);
+
+
   return (
 
     <div className='w-full h-16 md:h-20 flex items-center justify-between'>
@@ -49,9 +58,11 @@ const Navbar = () => {
               <Link to= "/contact" className=" text-2xl p-4">Contact</Link>
               <Link to= "/trending" className=" text-2xl p-4">Trending🎉</Link>
               
-              <Link to= "/login"></Link>
-              
-              <button className="py-2 px-4 rounded-3xl bg-blue-800 text-2xl text-white" >login👋</button>
+              <SignedOut>
+                <Link to="/login">
+                  <button className="py-2 px-4 rounded-3xl bg-blue-800 text-2xl text-white" >login👋</button>
+                </Link>
+              </SignedOut>
               
             </div>
         </div>

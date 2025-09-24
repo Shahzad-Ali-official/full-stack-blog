@@ -11,6 +11,16 @@ import RegisterPage from './routes/Registerpage.jsx';
 import SinglePostPage from './routes/SinglePostPage.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import { ClerkProvider } from '@clerk/clerk-react';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+
+const queryClient = new QueryClient();
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -56,7 +66,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <QueryClientProvider client={queryClient}>
+
       <RouterProvider router={router} />
+      </QueryClientProvider>
     </ClerkProvider>
   </StrictMode>
 
