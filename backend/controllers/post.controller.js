@@ -12,24 +12,42 @@ export const getPost = async (req, res) => {
     
 };
 export const createPost = async (req, res) => {
-    const clerkUserId = req.auth().userId;
-        console.log(req.headers);
-
-    if(!clerkUserId){
-        return res.status(401).json({message: "Unauthorized"});
+  try {
+    const { title, desc, category, content, img } = req.body;
+    const clerkUserId = req.auth.userId;
+    if (!clerkUserId) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
-    const user = await User.findOne(clerkUserId);
-    
-    if(!user){
-        return res.status(404).json({message: "User not found"});
-    } 
-
-     const newPost = new Post({user: user._id, ...req.body});
-     
-    // Save the new post
-    const post = await newPost.save(); // Correctly declare and assign the new post
-    res.status(200).json(post);
-    
+    if (!title || !category || !content) {
+      return res.status(400).json({ message: "Title, category, and content are required." });
+    }
+    const user = await User.findOne({ clerkUserId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    let slug = title.replace(/ /g, "-").toLowerCase();
+    let existingPost = await Post.findOne({ slug });
+    let counter = 2;
+    while (existingPost) {
+      slug = `${slug}-${counter}`;
+      existingPost = await Post.findOne({ slug });
+      counter++;
+    }
+    const newPost = new Post({
+      user: user._id,
+      slug,
+      title,
+      desc,
+      category,
+      content,
+      img,
+    });
+    const post = await newPost.save();
+    res.status(201).json(post);
+  } catch (error) {
+    console.error("Error creating post:", error);
+    res.status(500).json({ message: "Failed to create post", error: error.message });
+  }
 };
 export const deletePost = async (req, res) => {
     const clerkUserId = req.auth().userId;
@@ -37,6 +55,6 @@ export const deletePost = async (req, res) => {
         return res.status(401).json({message: "Unauthorized"});
     }
     const user = await User.findOne({clerkUserId});
-    const post = await Post.findOneAndDelete(req.params.id);
+    const post = await Post.findOneAndDelete({_id: req.params.id,user: user._id,});
     res.status(200).json("post has been deleted");
 };

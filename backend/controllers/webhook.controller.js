@@ -27,6 +27,7 @@ export const clerkWebHook = async (req, res) => {
                 email: evt.data.email_addresses[0].email_address,
                 img: evt.data.image_url, 
             });
+            
             await newUser.save();
             return res.status(201).json({message: "User created successfully."});
         } catch (err) {
