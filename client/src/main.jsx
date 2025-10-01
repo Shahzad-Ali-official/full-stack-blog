@@ -18,6 +18,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const queryClient = new QueryClient();
@@ -39,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:slug",
-    element: <PostListPage/ >,
+    element: <SinglePostPage />,
   },
   {
     path: "/write",
@@ -55,8 +58,8 @@ const router = createBrowserRouter([
   },
 {
   path: "/test",
-  element: <SinglePostPage/ >,
-}
+    element: <SinglePostPage />,
+  }
    ]
     
 }
@@ -69,6 +72,7 @@ createRoot(document.getElementById('root')).render(
       <QueryClientProvider client={queryClient}>
 
       <RouterProvider router={router} />
+      <ToastContainer position="bottom-right" />
       </QueryClientProvider>
     </ClerkProvider>
   </StrictMode>
