@@ -3,13 +3,14 @@ import { ImageKitProvider } from "@imagekit/react"
 import { Link } from "react-router"
 import {format} from "timeago.js"
 
+
 const PostListItem = ({post}) => {
   return (
     <div className="flex flex-col xl:flex-row gap-8 mb-8">
       {/*image*/}
       {post.img && (<div className="md:hidden xl:block xl:w-1/3 ">
         <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}>
-          <Image src={post.img} className="rounded-2xl object-cover " width={735}  />
+          <Image src={post.img} className="rounded-2xl object-cover " width={350}  />
         </ImageKitProvider>
       </div>)}
       
@@ -18,9 +19,11 @@ const PostListItem = ({post}) => {
            <Link to={`/${post.slug}`} className="text-4xl font-semibold">{post.title}</Link>
                 <div className="flex items-center gap-2 text-gray-400 text-sm">
                   <span>written by </span>
-                <Link className="text-blue-800">{post.user?.username}</Link>
+                {post.user?.username && (
+                  <Link to={`/?username=${post.user.username}`} className="text-blue-800">{post.user.username}</Link>
+                )}
                 <span>on</span>
-                <Link className="text-blue-800">{post.category}</Link>
+                <Link to={`/?category=${post.category}`} className="text-blue-800">{post.category}</Link>
                 <span>{format(post.createdAt)}</span>
                 </div>
                   <p>

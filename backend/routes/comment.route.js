@@ -1,9 +1,10 @@
 import express from "express"
-const router =express.Router()  
+import { addComment, deleteComment, getPostComments } from "../controllers/comment.controller.js"
 
+const router = express.Router()
 
-router.get("/test",(req,res)=>{
-    res.status(200).send("coomnets route")
-})
+router.get("/:postId", getPostComments)
+router.post("/:postId", addComment)
+router.delete("/:id", deleteComment)
 
-export default router //ex 
+export default router 

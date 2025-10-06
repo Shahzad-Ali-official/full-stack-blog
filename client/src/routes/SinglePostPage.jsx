@@ -1,33 +1,58 @@
 import {  Image } from "@imagekit/react"
 import { ImageKitProvider } from "@imagekit/react"
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import PostMenuActions from "../components/PostMenuActions";
 import Search from "../components/Search";
 import Comments from "../components/Comments";
+import axios from "axios";
+import {useQuery} from "@tanstack/react-query"
+import {format} from "timeago.js"
+
+const fetchPost = async (slug) => {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
+  return res.data;
+};
+
 const SinglePostPage = () => {
+
+ const { slug } = useParams();
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["post", slug],
+    queryFn: () => fetchPost(slug),
+  });
+
+  if (isPending) return "loading...";
+  if (error) return "Something went wrong!" + error.message;
+  if (!data) return "Post not found!";
+
+
   return (
     <div className="flex flex-col gap-8">
       {/*deatails and title*/}
       <div className="flex gap-8">
         <div className="lg:w-3/5 flex flex-col gap-8">
-        <h1 className="text-xl md:text-3xl xl:text-4xl font-semibold 2xl:text-5xl">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque vero ullam officiis commodi magni</h1>
+        <h1 className="text-xl md:text-3xl xl:text-4xl font-semibold 2xl:text-5xl">{data.title}</h1>
             <div className="flex items-center gap-2 text-gray-600 text-sm"> 
         <span>wittern by</span>
-        <Link className="text-blue-800">Jhon doe</Link>
+        {data.user?.username && (
+          <Link to={`/?username=${data.user.username}`} className="text-blue-800">
+            {data.user.username}
+          </Link>
+        )}
         <span>on</span>
-        <Link className="text-blue-800">Web Design</Link>
-        <span>2 days ago</span>
+        <Link className="text-blue-800">{data.category}</Link>
+        <span>{format(data.createdAt)}</span>
             </div>
                 <p className="text-gray-600 font-medium">
-                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis, magnam? Omnis sit eveniet voluptatem, iusto delectus beatae reiciendis explicabo dolore amet sapiente fuga odit excepturi repellat totam doloremque doloribus alias!
-
+                  {data.desc}
                 </p>
         </div>
-              <div className="hidden lg:block lg:w-2/5">
+            {data.img && (<div className="hidden lg:block lg:w-2/5">
                 <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}>
-                  <Image src="postImg.jpeg" className="rounded-2xl object-cover aspect-video" width={600}  />
+                  <Image src={data.img} className="rounded-2xl object-cover aspect-video" width={600}  />
                 </ImageKitProvider>
-              </div>
+              </div>)}
 
         </div>
     
@@ -53,9 +78,9 @@ const SinglePostPage = () => {
                 <h1 className="mt-2 mb-4 text-sm font-medium"> Author</h1>
                 <div className="flex flex-col gap-4">
                 <ImageKitProvider urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}>
-                <div className="flex items-center gap-8">
-                    <Image src= "userImg.jpeg" className="w-12 h-12 rounded-full object-cover" w={48} h={48}/>
-                  <Link>Jhon DOE</Link>
+                <div className="flex items-center gap-4">
+                   {data.user?.img && <Image src={data.user.img} className="w-12 h-12 rounded-full object-cover" w={48} h={48}/>}
+                  <Link to={`/?username=${data.user.username}`}>{data.user.username}</Link>
                   </div>
                   <p className="text-sm text-gray-600">lorem is okay and he posted it</p>
                   
@@ -72,7 +97,7 @@ const SinglePostPage = () => {
                  </div>
                  </ImageKitProvider> 
                 </div>              
-                <PostMenuActions/>
+                <PostMenuActions post={data}/>
                 <h1 className="mt-4 mb-3 text-sm font-medium">Categories</h1>
                 <div className="flex flex-col gap-2 text-sm">
                 <Link className="underline">All</Link>
@@ -87,7 +112,7 @@ const SinglePostPage = () => {
                 </div>
               </div>
          </div>
-         <Comments/>     
+         <Comments postId={data._id}/>     
     </div>
   )
 }

@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 
 const commentSchema = new Schema({
-      username: {
+      user: {
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
