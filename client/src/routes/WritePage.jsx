@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import Upload from "../components/Upload";
 
 
+
 const WritePage = () => {
   const { isLoaded, isSignedIn } = useUser();
   const [value, setValue] = useState("");
@@ -69,6 +70,8 @@ const WritePage = () => {
     }
 
     const data = {
+      img: cover?.url || "",      // Change from cover.filepath to cover.url
+      video: video?.url || "",    // Change from video.filepath to video.url
       title: title,
       desc: formData.get("desc"),
       category: category,
@@ -84,7 +87,7 @@ const WritePage = () => {
     <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col gap-6 p-4">
       <h1 className="text-xl font-medium">Create New Post</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1 mb-4">
-       {/*<button className="w-max p-2 shadow-xl text-gray-500 bg-white rounded-full">Add a cover image</button>*/}
+       
            <Upload type="image" setProgress={setProgress} setData={setCover}>
           <button className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
             Add a cover image
