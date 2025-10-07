@@ -184,7 +184,7 @@ const PostMenuActions = ({post}) => {
         </div>
       )}
 
-          {user && (post.user.username === user.username || isAdmin) && (  
+          {user && (post.user?.username === user.username || isAdmin) && (  
             <div className="flex items-center gap-2 py-2 text-sm cursor-pointer" onClick={handleDelete}>
             <svg
   xmlns="http://www.w3.org/2000/svg"
