@@ -16,7 +16,7 @@
 
   # The directory where your Netlify Functions are located.
   # This path is relative to the project root (e.g., d:\ReactJs).
-  functions = "backend/netlify/functions"
+  functions = "backend/netlify/functions/"
 
 [[redirects]]
   from = "/*"
