@@ -4,15 +4,13 @@
 [build]
   # Specifies the base directory where Netlify should run the build command.
   # This points to your React frontend application.
-  base = "client"
 
   # The command to build your React application.
   # Netlify will run 'npm install' in the 'base' directory first, then this command.
-  command = "npm run build"
+  command = "cd client && npm install && npm run build"
 
   # The directory containing the compiled static assets of your React app.
-  # This path is relative to the 'base' directory (so 'client/dist').
-  publish = "dist"
+  publish = "client/dist"
 
   # The directory where your Netlify Functions are located.
   # This path is relative to the project root (e.g., d:\ReactJs).
